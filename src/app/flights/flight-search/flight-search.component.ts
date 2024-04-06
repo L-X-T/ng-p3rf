@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, ElementRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { BehaviorSubject, Observer } from 'rxjs';
 
+import { BlinkService } from '../../shared/blink.service';
 import { pattern } from '../../shared/global';
 
 import { Flight } from '../../entities/flight';
@@ -19,6 +20,7 @@ import { FlightStatusToggleComponent } from '../flight-status-toggle/flight-stat
   imports: [CommonModule, FormsModule, FlightCardComponent, FlightStatusToggleComponent],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightSearchComponent {
   from = 'Hamburg';
@@ -41,7 +43,9 @@ export class FlightSearchComponent {
     5: true,
   };
 
+  private readonly blinkService = inject(BlinkService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly elementRef = inject(ElementRef);
   private readonly flightService = inject(FlightService);
   private readonly router = inject(Router);
 
@@ -136,5 +140,9 @@ export class FlightSearchComponent {
 
   onEdit(id: number): void {
     this.router.navigate(['/flights/flight-edit', id, { showDetails: true }]);
+  }
+
+  blink(): void {
+    this.blinkService.blinkElementsFirstChild(this.elementRef);
   }
 }

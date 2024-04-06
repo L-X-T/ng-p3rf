@@ -5,14 +5,14 @@ import { DOCUMENT } from '@angular/common';
   selector: 'app-navbar',
   standalone: true,
   templateUrl: 'navbar.component.html',
-  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  private sidebarVisible = false;
-  private readonly doc = inject(DOCUMENT);
+  sidebarVisible = false;
 
-  onToggleSidebar(): void {
-    const body = this.doc.getElementsByTagName('body')[0];
+  private readonly document = inject(DOCUMENT);
+
+  sidebarToggle(): void {
+    const body = this.document.getElementsByTagName('body')[0];
 
     if (!this.sidebarVisible) {
       body.classList.add('nav-open');
