@@ -1,8 +1,16 @@
-# NgA11y
+# Alexander Thalhammer - Workshop Base
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3 and has since been improved and update by [@LX_T](https://twitter.com/LX_T), currently using Angular 17.3.5.
 
-## Development server
+## Slides
+
+You'll find the workshop slides in the `slides` directory.
+
+## Exercises
+
+You'll find the workshop labs in the `labs` directory.
+
+## Development
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
@@ -24,4 +32,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use `ng help`, contact your trainer [Alex T.](https://alex.thalhammer.name) or go check our website [Angular Architects](https://www.angulararchitects.io).
