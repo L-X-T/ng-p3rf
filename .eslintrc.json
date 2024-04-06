@@ -1,0 +1,74 @@
+{
+  "root": true,
+  "ignorePatterns": ["coverage/*", "dist/*", "node_modules/*", "tools/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/no-empty-lifecycle-method": "warn",
+        "@angular-eslint/prefer-on-push-component-change-detection": "off",
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": "variable",
+            "format": ["camelCase", "UPPER_CASE", "PascalCase"]
+          }
+        ],
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-empty-interface": "error",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": "off",
+        "max-len": [
+          "warn",
+          {
+            "code": 120,
+            "comments": 160
+          }
+        ],
+        "no-console": "off",
+        "no-restricted-syntax": "off",
+        "prettier/prettier": [
+          "warn",
+          {
+            "endOfLine": "auto"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {
+        "@angular-eslint/template/attributes-order": "off",
+        "@angular-eslint/template/button-has-type": "warn",
+        "@angular-eslint/template/prefer-control-flow": "warn",
+        "@angular-eslint/template/prefer-ngsrc": "warn",
+        "@angular-eslint/template/prefer-self-closing-tags": "warn",
+        "@angular-eslint/template/use-track-by-function": "warn"
+      }
+    }
+  ]
+}
