@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+import { BlinkService } from '../shared/blink.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule, NgOptimizedImage],
+  imports: [RouterModule],
   templateUrl: 'sidebar.component.html',
+  styleUrl: 'sidebar.component.scss',
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+  private readonly blinkService = inject(BlinkService);
+  private readonly elementRef = inject(ElementRef);
+
+  blink(): void {
+    this.blinkService.blinkElementsFirstChild(this.elementRef);
+  }
+}

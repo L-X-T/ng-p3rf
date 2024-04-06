@@ -1,0 +1,15 @@
+@if (errors) {
+  <!--<div class="alert alert-info">{{ errors | json }}</div>-->
+  @if (errors['required']) {
+    <div class="alert alert-danger">{{ fieldLabel }} is required.</div>
+  }
+  @if (errors['minlength']) {
+    <div class="alert alert-danger">{{ fieldLabel }} minlength is {{ errors['minlength'].requiredLength }}.</div>
+  }
+  @if (errors['maxlength']) {
+    <div class="alert alert-danger">{{ fieldLabel }} maxlength is {{ errors['maxlength'].requiredLength }}.</div>
+  }
+  @if (errors['pattern']) {
+    <div class="alert alert-danger">{{ fieldLabel }} has invalid input.</div>
+  }
+}

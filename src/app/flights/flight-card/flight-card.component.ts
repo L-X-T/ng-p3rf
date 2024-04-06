@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -11,7 +10,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
+
+import moment from 'moment';
 
 import { Flight } from '../../entities/flight';
 import { CityPipe } from '../../pipes/city.pipe';
@@ -20,13 +20,13 @@ import { BlinkService } from '../../shared/blink.service';
 @Component({
   selector: 'app-flight-card',
   standalone: true,
-  imports: [CityPipe, DatePipe],
+  imports: [CityPipe],
   templateUrl: './flight-card.component.html',
   styleUrl: './flight-card.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
-  debug = !isDevMode();
+  debug = isDevMode();
 
   @Input({ required: true }) item!: Flight;
   @Input() selected = false;
@@ -35,10 +35,6 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
 
   private readonly blinkService = inject(BlinkService);
   private readonly elementRef = inject(ElementRef);
-
-  static getRandomCssColor(): string {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  }
 
   ngOnChanges(): void {
     if (this.debug) {
@@ -78,6 +74,10 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
       console.log('selected: ' + false);
     }
     this.selectedChange.emit(false);
+  }
+
+  getDate(item: Flight): string {
+    return moment(item.date).format('MM.DD.YYYY HH:mm');
   }
 
   blink(): void {

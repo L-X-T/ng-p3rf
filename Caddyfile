@@ -1,0 +1,4 @@
+:4100
+
+reverse_proxy localhost:3000
+encode gzip
