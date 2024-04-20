@@ -63,11 +63,13 @@
   </div>
 </div>
 
-@if (flightsSubject | async; as asyncFlights) {
+@if (flightsSubject | async; as flights) {}
+
+@if ({ flights: flightsSubject | async }; as data) {
   <div class="container">
     <h3 class="title">Flights with Async Pipe</h3>
     <div class="row">
-      @for (flight of asyncFlights; track flight.id) {
+      @for (flight of data.flights; track flight.id) {
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <app-flight-card [item]="flight" [(selected)]="basket[flight.id]" (edit)="onEdit(flight.id)">
             <app-flight-status-toggle [(status)]="flight.delayed" />
