@@ -1,0 +1,5 @@
+/flights/flight-edit/1;showDetails=true
+/flights/flight-edit/2;showDetails=true
+/flights/flight-edit/3;showDetails=true
+/flights/flight-edit/4;showDetails=true
+/flights/flight-edit/5;showDetails=true

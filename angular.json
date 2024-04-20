@@ -38,7 +38,9 @@
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": {
+              "routesFile": "angular-ssg-routes.txt"
+            },
             "ssr": {
               "entry": "server.ts"
             }
