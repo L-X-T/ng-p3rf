@@ -25,7 +25,7 @@ import { FlightDatePipe } from '../shared/pipes/flight-date.pipe';
   imports: [DatePipe, CityPipe, FlightDatePipe],
   templateUrl: './flight-card.component.html',
   styleUrl: './flight-card.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
   debug = isDevMode();
