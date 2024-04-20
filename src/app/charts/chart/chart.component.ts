@@ -1,4 +1,15 @@
-import { AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 import { ChartsDataService } from './charts-data.service';
 import { BlinkService } from '../../shared/blink.service';
@@ -20,9 +31,11 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   chart?: anychart.charts.Pie | null;
 
+  private readonly cdr = inject(ChangeDetectorRef);
   private readonly chartsDataService = inject(ChartsDataService);
   private readonly blinkService = inject(BlinkService);
   private readonly elementRef = inject(ElementRef);
+  private readonly ngZone = inject(NgZone);
 
   ngOnInit(): void {
     // Default data set mapping, hardcoded here.
@@ -30,10 +43,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.chart && this.container) {
-      this.chart.container(this.container.nativeElement);
-      this.chart.draw();
-    }
+    this.ngZone.runOutsideAngular(() => {
+      if (this.chart && this.container) {
+        this.chart.container(this.container.nativeElement);
+        this.chart.draw();
+        //this.cdr.detach();
+      }
+    });
   }
 
   ngOnDestroy(): void {
