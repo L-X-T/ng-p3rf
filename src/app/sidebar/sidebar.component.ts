@@ -3,10 +3,12 @@ import { RouterModule } from '@angular/router';
 import { BlinkService } from '../shared/blink.service';
 import { NgOptimizedImage } from '@angular/common';
 
+import { QuicklinkModule } from 'ngx-quicklink';
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule, NgOptimizedImage],
+  imports: [RouterModule, NgOptimizedImage, QuicklinkModule],
   templateUrl: 'sidebar.component.html',
   styleUrl: 'sidebar.component.scss',
 })
