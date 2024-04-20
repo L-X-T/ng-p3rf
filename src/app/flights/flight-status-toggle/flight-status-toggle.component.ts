@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, Output } from '@angular/core';
 
 import { BlinkService } from '../../shared/blink.service';
 
@@ -6,7 +6,7 @@ import { BlinkService } from '../../shared/blink.service';
   selector: 'app-flight-status-toggle',
   standalone: true,
   templateUrl: './flight-status-toggle.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightStatusToggleComponent {
   @Input({ required: true }) status = false;
