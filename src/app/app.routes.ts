@@ -3,8 +3,6 @@ import { Route } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ChartsComponent } from './charts/charts.component';
 
-import flightRoutes from './flights/flights.routes';
-
 export const appRoutes: Route[] = [
   {
     path: '',
@@ -19,8 +17,8 @@ export const appRoutes: Route[] = [
 
   {
     path: 'flights',
-    children: flightRoutes,
-    // loadChildren: () => import('./flights/flights.routes').then((f) => f.flightBookingRoutes),
+    // children: flightRoutes,
+    loadChildren: () => import('./flights/flights.routes'),
   },
 
   {
