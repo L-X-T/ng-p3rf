@@ -1,9 +1,8 @@
-import { Component, inject, Input, OnChanges } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observable } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { pattern } from '../../shared/global';
@@ -18,7 +17,6 @@ import { Flight } from '../../entities/flight';
   templateUrl: './flight-edit.component.html',
 })
 export class FlightEditComponent implements OnChanges {
-  flight$?: Observable<Flight>;
   @Input() flight?: Flight;
 
   id?: number;
@@ -28,34 +26,24 @@ export class FlightEditComponent implements OnChanges {
   editForm!: FormGroup;
 
   private readonly DEBOUNCE_MS = 250;
-  private readonly DELAY_MS = 3_000;
+  private readonly DELAY_MS = 2_500;
+  private readonly destroyRef = inject(DestroyRef);
   private readonly fb = inject(FormBuilder);
   private readonly flightService = inject(FlightService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  constructor() {
-    this.setupEditForm();
-
-    this.editForm.valueChanges
-      .pipe(
-        debounceTime(this.DEBOUNCE_MS),
-        distinctUntilChanged((a, b) => a.id === b.id && a.from === b.from && a.to === b.to && a.date === b.date),
-        takeUntilDestroyed(),
-      )
-      .subscribe((value) => {
-        console.log(value);
-      });
-
-    this.flight$ = this.route.paramMap.pipe(
+  private readonly flightSubscription = this.route.paramMap
+    .pipe(
       tap((paramMap: ParamMap) => {
         this.id = Number(paramMap.get('id'));
         this.showDetails = paramMap.get('showDetails') === 'true';
       }),
-      switchMap((paramMap: ParamMap) => this.flightService.findById('' + paramMap.get('id'))),
-    );
-
-    this.flight$.pipe(takeUntilDestroyed()).subscribe({
+      switchMap((paramMap: ParamMap) => this.flightService.findById(paramMap.get('id') ?? '')),
+      delay(this.DELAY_MS),
+      takeUntilDestroyed(),
+    )
+    .subscribe({
       next: (flight) => {
         this.flight = flight;
         this.patchFormValue();
@@ -68,6 +56,11 @@ export class FlightEditComponent implements OnChanges {
         this.message = 'Error Loading!';
       },
     });
+
+  constructor() {
+    this.setupEditForm();
+
+    this.subscribeToValueChanges();
   }
 
   ngOnChanges(): void {
@@ -81,7 +74,7 @@ export class FlightEditComponent implements OnChanges {
 
     this.flightService
       .save(flightToSave)
-      .pipe(delay(this.DELAY_MS))
+      .pipe(delay(this.DELAY_MS), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (flight) => {
           // console.warn('FlightEditComponent - onSave()');
@@ -128,6 +121,18 @@ export class FlightEditComponent implements OnChanges {
       ],
       date: ['', [Validators.required, Validators.minLength(33), Validators.maxLength(33)], []],
     });
+  }
+
+  private subscribeToValueChanges() {
+    this.editForm.valueChanges
+      .pipe(
+        debounceTime(this.DEBOUNCE_MS),
+        distinctUntilChanged((a, b) => a.id === b.id && a.from === b.from && a.to === b.to && a.date === b.date),
+        takeUntilDestroyed(),
+      )
+      .subscribe((value) => {
+        console.log(value);
+      });
   }
 
   private patchFormValue(): void {
