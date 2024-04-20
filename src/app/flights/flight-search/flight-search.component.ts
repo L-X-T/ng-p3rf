@@ -95,10 +95,10 @@ export class FlightSearchComponent {
       flightDate.setTime(flightDate.getTime() + this.TEN_MINUTES);
 
       // Mutable
-      this.flights[0].date = flightDate.toISOString();
+      // this.flights[0].date = flightDate.toISOString();
 
       // Immutable
-      // ?
+      this.flights[0] = { ...this.flights[0], date: flightDate.toISOString() };
     }
 
     // RxJS
