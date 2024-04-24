@@ -36,7 +36,12 @@
               "node_modules/@angular-architects/paper-design/assets/scss/paper-dashboard.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {

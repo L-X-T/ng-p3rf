@@ -21,7 +21,8 @@
     "wba": "npx webpack-bundle-analyzer dist/ng-p3rf/stats.json",
     "igv": "npx @rx-angular/import-graph-visualizer --entry-points src/main.ts --ts-config tsconfig.app.json",
     "dpdm": "npx dpdm --no-warning --no-tree src/main.ts",
-    "ng:update": "ng update @angular/cli @angular/core @angular/material @angular-eslint/schematics"
+    "ng:update": "ng update @angular/cli @angular/core @angular/material @angular-eslint/schematics",
+    "ssr": "node dist/ng-p3rf/server/server.mjs"
   },
   "private": true,
   "dependencies": {
