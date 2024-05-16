@@ -2,7 +2,7 @@ import { ElementRef, inject, Injectable, NgZone } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class BlinkService {
-  private demo = false;
+  private demo = true;
 
   private readonly ngZone = inject(NgZone);
 
