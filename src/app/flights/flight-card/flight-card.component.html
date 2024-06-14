@@ -13,13 +13,7 @@
     <p [class.delayed]="item().delayed">Date: {{ item() | flightDate: datePipe | date: 'dd.MM.YYYY HH:mm' }}</p>
     <!--<p [class.delayed]="item.delayed">Date: {{ item.date | date: 'dd.MM.YYYY HH:mm' }}</p>-->
     <p>
-      @if (!selected) {
-        <button type="button" class="btn btn-default" (click)="onSelect()">Add</button>
-      } @else {
-        <button type="button" class="btn btn-default" (click)="onDeselect()">Rem.</button>
-      }
-      <button type="button" class="btn btn-default" style="margin: 0 10px" (click)="edit.emit()">Edit</button>
-      <ng-content />
+      <ng-content>What a nice Flight, but no actions!</ng-content>
     </p>
   </div>
 </div>

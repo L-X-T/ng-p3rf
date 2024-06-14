@@ -34,7 +34,7 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
   debug = false;
 
   item = input.required<Flight>();
-  selected = model(false);
+  selected = input(false);
   edit = output<void>();
 
   readonly datePipe = new DatePipe('en-US');
@@ -64,22 +64,6 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
       console.log(this.item);
       console.log('selected: ' + this.selected);
     }
-  }
-
-  onSelect(): void {
-    if (this.debug) {
-      console.warn('[FlightCardComponent - onSelect()]');
-      console.log('selected: ' + true);
-    }
-    this.selected.set(true);
-  }
-
-  onDeselect(): void {
-    if (this.debug) {
-      console.warn('[FlightCardComponent - onDeselect()]');
-      console.log('selected: ' + false);
-    }
-    this.selected.set(false);
   }
 
   blink(): void {
