@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 })
 export class FlightDatePipe implements PipeTransform {
   transform(item: Flight, datePipe: DatePipe): string {
-    console.log('flightDate pipe was called');
+    // console.log('flightDate pipe was called');
     return item.date;
   }
 }

@@ -1,16 +1,16 @@
-<div class="card" [class.selected]="selected">
+<div class="card" [class.selected]="selected()">
   <div class="card-header">
-    <h2 class="title">{{ item.from | city }} - {{ item.to | city }}</h2>
+    <h2 class="title">{{ item().from | city }} - {{ item().to | city }}</h2>
   </div>
 
   <div class="card-body">
     <p>
-      Flight-No.: #{{ item.id }}
-      @if (item.delayed) {
+      Flight-No.: #{{ item().id }}
+      @if (item().delayed) {
         <span> (delayed)</span>
       }
     </p>
-    <p [class.delayed]="item.delayed">Date: {{ item | flightDate: datePipe | date: 'dd.MM.YYYY HH:mm' }}</p>
+    <p [class.delayed]="item().delayed">Date: {{ item() | flightDate: datePipe | date: 'dd.MM.YYYY HH:mm' }}</p>
     <!--<p [class.delayed]="item.delayed">Date: {{ item.date | date: 'dd.MM.YYYY HH:mm' }}</p>-->
     <p>
       @if (!selected) {

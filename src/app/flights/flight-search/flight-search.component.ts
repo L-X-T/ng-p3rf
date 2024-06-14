@@ -43,7 +43,7 @@ export class FlightSearchComponent {
   flights: Flight[] = []; // old school
   flights$ = new Observable<Flight[]>();
   readonly flightsSubject = new BehaviorSubject<Flight[]>([]); // RxJS
-  private readonly flightsSignal = signal<Flight[]>([]); // Signal
+  readonly flightsSignal = signal<Flight[]>([]); // Signal
   private readonly anotherFlightsSignal = signal<Flight[]>([]); // Signal
 
   readonly computedSignal = computed(() => [...this.flightsSignal(), ...this.anotherFlightsSignal()]);

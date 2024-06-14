@@ -4,11 +4,14 @@ import {
   ElementRef,
   EventEmitter,
   inject,
+  input,
   Input,
   isDevMode,
+  model,
   OnChanges,
   OnDestroy,
   OnInit,
+  output,
   Output,
 } from '@angular/core';
 
@@ -28,12 +31,11 @@ import { FlightDatePipe } from '../shared/pipes/flight-date.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
-  debug = isDevMode();
+  debug = false;
 
-  @Input({ required: true }) item!: Flight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
-  @Output() edit = new EventEmitter<void>();
+  item = input.required<Flight>();
+  selected = model(false);
+  edit = output<void>();
 
   readonly datePipe = new DatePipe('en-US');
 
@@ -69,7 +71,7 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
       console.warn('[FlightCardComponent - onSelect()]');
       console.log('selected: ' + true);
     }
-    this.selectedChange.emit(true);
+    this.selected.set(true);
   }
 
   onDeselect(): void {
@@ -77,7 +79,7 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
       console.warn('[FlightCardComponent - onDeselect()]');
       console.log('selected: ' + false);
     }
-    this.selectedChange.emit(false);
+    this.selected.set(false);
   }
 
   blink(): void {
