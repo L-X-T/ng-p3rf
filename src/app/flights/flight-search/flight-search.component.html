@@ -40,13 +40,15 @@
     >
       Search
     </button>
-    @if (flights.length > 0) {
+    @if (flights && flights.length > 0) {
       <button type="button" class="btn btn-default" style="margin-left: 10px" (click)="onDelayFirstFlight()">
         Delay 1st Flight
       </button>
     }
   </div>
 </form>
+
+@let flights = flights$ | async;
 
 <div class="container">
   <h3 class="title">Flights with Subscription</h3>
@@ -65,22 +67,22 @@
 
 @if (flightsSubject | async; as flights) {}
 
-@if ({ flights: flightsSubject | async }; as data) {
-  <div class="container">
-    <h3 class="title">Flights with Async Pipe</h3>
-    <div class="row">
-      @for (flight of data.flights; track flight.id) {
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <app-flight-card [item]="flight" [(selected)]="basket[flight.id]" (edit)="onEdit(flight.id)">
-            <app-flight-status-toggle [(status)]="flight.delayed" />
-          </app-flight-card>
-        </div>
-      } @empty {
-        No async flights found.
-      }
-    </div>
+<div class="container">
+  <h3 class="title">Flights with Async Pipe</h3>
+  <div class="row">
+    @for (flight of flights; track flight.id) {
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <app-flight-card [item]="flight" [(selected)]="basket[flight.id]" (edit)="onEdit(flight.id)">
+          <app-flight-status-toggle [(status)]="flight.delayed" />
+        </app-flight-card>
+      </div>
+    } @empty {
+      No async flights found.
+      {{ flights | json }}
+    }
   </div>
-}
+</div>
+
 
 <!--<div class="container">
   <h3 class="title">Flights with Signal</h3>

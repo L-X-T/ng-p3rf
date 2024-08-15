@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { BehaviorSubject, Observer } from 'rxjs';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 
 import { BlinkService } from '../../shared/blink.service';
 import { pattern } from '../../shared/global';
@@ -41,6 +41,7 @@ export class FlightSearchComponent {
   private readonly TEN_MINUTES = 10 * 1000 * 60;
 
   flights: Flight[] = []; // old school
+  flights$ = new Observable<Flight[]>();
   readonly flightsSubject = new BehaviorSubject<Flight[]>([]); // RxJS
   private readonly flightsSignal = signal<Flight[]>([]); // Signal
   private readonly anotherFlightsSignal = signal<Flight[]>([]); // Signal
@@ -62,7 +63,7 @@ export class FlightSearchComponent {
     effect(() => console.log('update: ', this.computedSignal()));
 
     if (this.from && this.to) {
-      this.onSearch(); // auto search if default test values are set
+      // this.onSearch(); // auto search if default test values are set
     }
   }
 
